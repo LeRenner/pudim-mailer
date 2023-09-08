@@ -30,7 +30,7 @@ app.post('/api/sendMail', (req, res) => {
 
 		console.log('Sending message to MQTT broker:', messageText);
 
-		client.publish('pudimMail', receivedData.text);
+		client.publish('pudimMail', messageText);
 
 		res.send('Message sent!');
 	} else {
