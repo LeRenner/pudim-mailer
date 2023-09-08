@@ -26,7 +26,7 @@ app.post('/api/sendMail', (req, res) => {
 			receivedData.name = 'Anonymous';
 		}
 
-		let messageText = receivedData.name + ' says: \n\n' + receivedData.text;
+		let messageText = "<u><b>" + receivedData.name + ' says:</b></u> \n\n' + receivedData.text;
 
 		console.log('Sending message to MQTT broker:', messageText);
 
