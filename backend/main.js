@@ -19,6 +19,7 @@ app.post('/api/sendMail', (req, res) => {
 	console.log('Received JSON data:', receivedData);
 
 	if (receivedData.text.length < 1000 && receivedData.text.length > 0 && receivedData.name.length < 30) {
+		console.log('Accepted the request!');
 		// Send data to MQTT broker
 
 		if (receivedData.name == undefined || receivedData.name == '') {
@@ -27,15 +28,20 @@ app.post('/api/sendMail', (req, res) => {
 
 		let messageText = receivedData.name + ' says: \n\n' + receivedData.text;
 
+		console.log('Sending message to MQTT broker:', messageText);
+
 		client.publish('pudimMail', receivedData.text);
 
 		res.send('Message sent!');
 	} else {
 		if (receivedData.text.length > 1000) {
+			console.log('Rejected the request for being too long!');
 			res.send('The message cannot be longer than 1000 characters!');
 		} else if (receivedData.name.length >= 30) {
+			console.log('Rejected the request for having a name too long!');
 			res.send('The name cannot be longer than 30 characters!');
 		} else {
+			console.log('Rejected the request for being empty!');
 			res.send('The message cannot be empty!');
 		}
 	}
