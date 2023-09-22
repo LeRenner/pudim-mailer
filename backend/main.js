@@ -29,7 +29,7 @@ app.post('/api/sendMail', (req, res) => {
 		let messageText = "<u><b>" + receivedData.name + ' says:</b></u> \n\n' + receivedData.text;
 
 		// if received data contains the substring "/daniel", send to different mqtt topic
-		if (receivedData.text.toLowerCase().includes('/daniel')) {
+		if (receivedData.text.toLowerCase().includes('@daniel') || receivedData.text.toLowerCase().includes('@r0zbot')) {
 			console.log('Sending message to MQTT broker:', messageText);
 			client.publish('danielMail', messageText);
 			res.send('Message sent to Daniel!');
