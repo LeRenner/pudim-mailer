@@ -34,6 +34,11 @@ app.post('/api/sendMail', (req, res) => {
 			client.publish('danielMail', messageText);
 			res.send('Message sent to Daniel!');
 			return;
+		} else if  (receivedData.toNyasu == "1") {
+			console.log('Sending message to MQTT broker:', messageText);
+			client.publish('nysuMail', messageText);
+			res.send('Message sent to Nyasu!');
+			return;
 		}
 
 		console.log('Sending message to MQTT broker:', messageText);
